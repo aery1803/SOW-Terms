@@ -1,0 +1,82 @@
+@use "sass:math";
+
+@function rem($px, $base: 16) {
+  @return #{math.div(math.floor(math.div($px, $base) * 100), 100)}rem;
+}
+
+// Monitors Screens
+$monitor-mid-width: 3840px;
+$monitor-min-width: 2560px;
+// Desktops
+$desktop-mid-width: 1920px;
+$desktop-min-width: 1560px;
+// Laptops
+$laptop-mid-width: 1440px;
+$laptop-min-width: 1280px;
+// Tablets
+$tablet-mid-width: 1024px;
+$tablet-min-width: 960px;
+// Fold Smartphones
+$fold-phone-mid-width: 768px;
+$fold-phone-min-width: 640px;
+// Smartphones
+$phone-xxl-width: 480px;
+$phone-xl-width: 425px;
+$phone-mid-width: 375px;
+$phone-min-width: 300px;
+$phone-xs-width: 240px;
+$phone-xxs-width: 200px;
+
+@media (width >= $desktop-mid-width) {
+  html {
+    font-size: 20px;
+  }
+}
+@media (width < $desktop-mid-width) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media (width < $tablet-mid-width) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (width < $tablet-mid-width) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (width < $fold-phone-mid-width) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (width < $fold-phone-min-width) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (width < $phone-xxl-width) {
+  html {
+    font-size: 10px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif !important;
+  font-size: rem(16);
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+
+  *:focus-visible {
+    outline: none;
+  }
+}

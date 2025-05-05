@@ -1,0 +1,253 @@
+@use "sass:math";
+
+@function rem($px, $base: 16) {
+  @return #{math.div(math.floor(math.div($px, $base) * 100), 100)}rem;
+}
+
+.main-container {
+  padding: rem(24);
+  display: flex;
+  flex-direction: column;
+  gap: rem(28);
+  position: relative;
+
+  .background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    padding: rem(8) rem(16);
+    margin: 0 auto;
+
+    @media (width < 500px) {
+      margin: 0;
+      width: 100%;
+    }
+
+    .logo {
+      width: rem(54);
+      height: rem(54);
+      object-fit: contain;
+
+      @media (width < 1270px) {
+        display: none;
+      }
+    }
+
+    .menu-dropdown {
+      position: relative;
+      display: inline-block;
+
+      .menu-icon {
+        display: none;
+        border-radius: rem(8);
+        padding: rem(8);
+        color: rgba(255, 255, 255, 1);
+        cursor: pointer;
+        width: rem(46);
+        height: rem(46);
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        @media (width < 1270px) {
+          display: flex;
+        }
+      }
+
+      .dropdown-content {
+        height: 0;
+        overflow: hidden;
+        left: rem(10);
+        min-width: rem(320);
+        top: calc(100% - rem(-12));
+        border-radius: rem(2);
+        position: absolute;
+        background-color: #f9f9f9;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+        transition: height 0.3s ease;
+
+        .nav-item {
+          padding: rem(24) rem(32);
+          font-size: rem(16.8);
+          font-weight: 600;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #8cc0ff;
+          }
+        }
+
+        @media (width < 500px) {
+          min-width: rem(200);
+        }
+      }
+
+      &:hover {
+        .menu-icon {
+          background-color: rgba(255, 255, 255, 0.4);
+        }
+      }
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: rem(16);
+
+      .nav-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: rem(16);
+
+        .nav-item {
+          font-size: rem(16);
+          font-weight: 500;
+          cursor: pointer;
+          white-space: pre;
+          color: rgba(255, 255, 255, 1);
+          text-decoration: none;
+          padding: rem(8) rem(16);
+          border-radius: rem(8);
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+        }
+
+        @media (width < 1270px) {
+          display: none;
+        }
+      }
+
+      .language-dropdown {
+        position: relative;
+        display: inline-block;
+
+        .language-info {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: rem(8);
+          padding: rem(8) rem(16);
+          color: rgba(255, 255, 255, 1);
+          cursor: pointer;
+          gap: rem(16);
+          min-width: rem(150);
+          transition: background-color 0.3s ease;
+
+          .language {
+            text-align: center;
+            font-size: rem(16.8);
+            font-weight: 500;
+          }
+
+          .language-flag {
+            width: rem(30);
+            height: rem(30);
+            margin-right: rem(8);
+            object-fit: contain;
+          }
+        }
+
+        .dropdown-content {
+          height: 0;
+          overflow: hidden;
+          right: 0;
+          top: calc(100% - rem(-12));
+          border-radius: rem(12);
+          position: absolute;
+          background-color: #f9f9f9;
+          min-width: rem(100);
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          transition: height 0.3s ease;
+          z-index: 1;
+
+          .language-info {
+            color: black;
+            padding: rem(10) rem(16);
+            gap: rem(8);
+            justify-content: space-between;
+
+            &:hover {
+              background-color: #f1f1f1;
+            }
+          }
+        }
+
+        &:hover {
+          .language-info {
+            background-color: rgba(255, 255, 255, 0.4);
+          }
+        }
+      }
+    }
+  }
+
+  .main-heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: rem(20);
+
+    .main-heading-text {
+      font-size: rem(32);
+      font-weight: 700;
+      color: rgba(255, 255, 255, 1);
+      text-align: center;
+    }
+  }
+
+  .main-content {
+    display: flex;
+    width: clamp(170px, 80%, 750px);
+    margin: rem(24) auto 0;
+    padding: rem(40);
+    font-size: rem(16);
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: rem(24);
+    color: rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .close-button {
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    gap: rem(8);
+    padding: rem(18) rem(52) rem(16);
+    border-radius: rem(48);
+    box-shadow: 1px 2px 4px -2px #000000aa;
+    border: none;
+    outline: none;
+    background-color: rgb(8, 158, 30);
+    color: rgba(255, 255, 255, 1);
+    font-size: rem(17.2);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background-color: rgb(8, 158, 30, 0.9);
+      box-shadow: 1px 2px 4px 0px #000000aa;
+    }
+  }
+}
