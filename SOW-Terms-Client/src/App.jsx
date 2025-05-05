@@ -25,10 +25,13 @@ function App() {
 
   const fetchContent = async (lang) => {
     setLoading(true);
-    const response = await fetch(`${import.meta.env.BASE_URL}/terms/${lang}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_BASE_URL}/terms/${lang}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
