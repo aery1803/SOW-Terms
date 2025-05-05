@@ -73,11 +73,13 @@ function App() {
 
   return (
     <div className="main-container">
-      <img
-        src="/background.jpg"
-        alt="Background"
-        className="background-image"
-      />
+      <div className="background">
+        <img
+          src="/background.jpg"
+          alt="Background"
+          className="background-image"
+        />
+      </div>
 
       <div className="header">
         <img className="logo" src="/logo.png" alt="Logo" />

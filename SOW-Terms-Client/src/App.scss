@@ -10,21 +10,25 @@
   gap: rem(16);
   position: relative;
 
-  .background-image {
+  .background {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    width: 100%;
     min-height: 100%;
-    object-fit: cover;
-    object-position: center center;
-    z-index: -10;
-    transform: translateZ(0px);
-    backface-visibility: hidden;
-    max-width: 100%;
-    height: auto;
+    z-index: -100;
+    
+    .background-image {
+      width: 100%;
+      object-fit: cover;
+      object-position: center center;
+      z-index: -10;
+      transform: translateZ(0px);
+      backface-visibility: hidden;
+      max-width: 100%;
+      height: auto;
+    }
   }
 
   .header {
@@ -38,7 +42,7 @@
     @media (width < 500px) {
       margin: 0;
       width: 100%;
-    padding: rem(24) rem(28);
+      padding: rem(24) rem(28);
     }
 
     .logo {
