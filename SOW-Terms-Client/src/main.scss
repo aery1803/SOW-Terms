@@ -56,18 +56,6 @@ $phone-xxs-width: 200px;
   }
 }
 
-@media (width < $fold-phone-min-width) {
-  html {
-    font-size: 12px;
-  }
-}
-
-@media (width < $phone-xxl-width) {
-  html {
-    font-size: 10px;
-  }
-}
-
 * {
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif !important;
