@@ -25,7 +25,7 @@ function App() {
 
   const fetchContent = async (lang) => {
     setLoading(true);
-    const response = await fetch(`http://localhost:3000/terms/${lang}`, {
+    const response = await fetch(`${import.meta.env.BASE_URL}/terms/${lang}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
