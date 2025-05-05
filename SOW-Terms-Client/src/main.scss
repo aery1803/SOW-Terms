@@ -38,7 +38,7 @@ $phone-xxs-width: 200px;
   }
 }
 
-@media (width < $tablet-mid-width) {
+@media (width < $laptop-mid-width) {
   html {
     font-size: 16px;
   }
@@ -71,8 +71,6 @@ $phone-xxs-width: 200px;
 * {
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif !important;
-  font-size: rem(16);
-  font-weight: 400;
   margin: 0;
   padding: 0;
 

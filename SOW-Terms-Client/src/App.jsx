@@ -1,18 +1,45 @@
 import React from "react";
 import logo from "./assets/menu.svg";
 import "./App.scss";
+import Loader from "./components/loader";
 
 const languages = [
   { lang: "Svenska", flag: "/SE.png", value: "swedish" },
   { lang: "English", flag: "/GB.png", value: "english" },
 ];
 
-const menus = ["Home", "Order", "Our Customers", "About Us", "Contact Us"];
+const menus = [
+  { menu: "Home", goto: "https://www.123fakturera.se/index.html" },
+  { menu: "Order", goto: "https://www.123fakturera.se/bestall.html" },
+  { menu: "Our Customers", goto: "https://www.123fakturera.se/kunder.html" },
+  { menu: "About Us", goto: "https://www.123fakturera.se/omoss.html" },
+  { menu: "Contact Us", goto: "https://www.123fakturera.se/kontaktaoss.html" },
+];
 
 function App() {
   const menuDropdownRef = React.useRef(null);
   const languageDropdownRef = React.useRef(null);
   const [selectedLanguage, setSelectedLanguage] = React.useState(languages[1]);
+  const [content, setContent] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
+
+  const fetchContent = async (lang) => {
+    setLoading(true);
+    const response = await fetch(`http://localhost:3000/terms/${lang}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    setContent(data);
+    setLoading(false);
+  };
+
+  React.useEffect(() => {
+    fetchContent(selectedLanguage.lang);
+  }, [selectedLanguage.lang]);
 
   React.useEffect(() => {
     const handleClickOutside = (event) => {
@@ -26,6 +53,20 @@ function App() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const { terms = {} } = content;
+  const sortedTerms = Object.keys(terms)
+    .filter((key) => key.startsWith("terms_text_") && !isNaN(key.split("_")[2]))
+    .sort((a, b) => parseInt(a.split("_")[2]) - parseInt(b.split("_")[2]))
+    .reduce((acc, key) => {
+      // Check for patterns like [text](link) and replace with anchor tags
+      const valueWithLinks = terms[key].replace(
+        /\[([^\]]+)\]\(([^)]+)\)/g,
+        '<a href="$2">$1</a>'
+      );
+      acc[key] = valueWithLinks;
+      return acc;
+    }, {});
 
   return (
     <div className="main-container">
@@ -50,13 +91,14 @@ function App() {
             {menus.map((item) => (
               <div
                 className="nav-item"
-                key={item}
+                key={item.menu}
                 onClick={() => {
+                  window.open(item.goto, "_blank");
                   if (menuDropdownRef.current)
                     menuDropdownRef.current.style.height = 0;
                 }}
               >
-                {item}
+                {item.menu}
               </div>
             ))}
           </div>
@@ -64,8 +106,12 @@ function App() {
         <div className="header-content">
           <nav className="nav-bar">
             {menus.map((item) => (
-              <div className="nav-item" key={item}>
-                {item}
+              <div
+                className="nav-item"
+                key={item.goto}
+                onClick={() => window.open(item.goto, "_blank")}
+              >
+                {item.menu}
               </div>
             ))}
           </nav>
@@ -104,14 +150,36 @@ function App() {
         </div>
       </div>
 
-      <div className="main-heading">
-        <span className="main-heading-text">Terms</span>
-        <button className="close-button">Close and Go Back</button>
-      </div>
+      {!content.id ? (
+        <div className="loader-container">
+          <Loader />
+        </div>
+      ) : (
+        <>
+          {loading && (
+            <div className="loader-container">
+              <Loader />
+            </div>
+          )}
+          <div className="main-heading">
+            <span className="main-heading-text">{terms?.terms}</span>
+            <button className="close-button">{terms?.close}</button>
+          </div>
 
-      <div className="main-content"></div>
+          <div className="main-content">
+            {Object.values(sortedTerms).map((term, index) => (
+              <p
+                className={index === 3 ? "mt-6" : index === 4 ? "mb-6" : ""}
+                dangerouslySetInnerHTML={{ __html: term }}
+              />
+            ))}
+          </div>
 
-      <button className="close-button">Close and Go Back</button>
+          <button className="close-button">{terms?.close}</button>
+
+          <div className="mb-6" />
+        </>
+      )}
     </div>
   );
 }

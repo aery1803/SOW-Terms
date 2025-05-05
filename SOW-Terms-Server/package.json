@@ -1,0 +1,25 @@
+{
+  "name": "fastify-sequelize-backend",
+  "version": "1.0.0",
+  "description": "A Fastify backend application with Sequelize integration.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "@fastify/cors": "^9.0.0",
+    "dotenv": "^10.0.0",
+    "fastify": "^4.0.0",
+    "fastify-plugin": "^5.0.1",
+    "pg": "^8.0.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
