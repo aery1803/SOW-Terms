@@ -1,5 +1,9 @@
+/**
+ * Configuration file for Sequelize CLI.
+ * This file specifies the paths for models, migrations, and seeders
+ * to ensure proper organization and functionality of Sequelize commands.
+ */
+
 module.exports = {
-  'models-path': 'src/models',
-  'migrations-path': 'src/migrations',
-  'seeders-path': 'src/seeders'
+  "models-path": "src/models", // Path to the models directory
 };
