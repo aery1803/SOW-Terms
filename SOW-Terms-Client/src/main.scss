@@ -67,6 +67,10 @@ $phone-xxs-width: 200px;
   }
 }
 
+html {
+  height: 100%;
+}
+
 body {
-  min-height: -webkit-fill-available;
+  min-height: 100svh;
 }
